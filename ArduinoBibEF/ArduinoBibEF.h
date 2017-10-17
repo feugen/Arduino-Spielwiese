@@ -9,15 +9,15 @@ extern void ArduinoBibEF_LCD_Animation(LiquidCrystal *lcd, char const *Text = "s
 extern int ArduinoBibEF_LCD_Initialisierung(LiquidCrystal *lcd);
 
 //Temperatursensor
-extern void ArduinoBibEF_TempSensorDHT11_LCD_Fehlerabfrage(LiquidCrystal *lcd, dht11 *DHT11);
-extern void ArduinoBibEF_TempSensorDHT11_LCD(LiquidCrystal *lcd, dht11 *DHT11, uint32_t Verzoegerung_ms = 250, uint8_t Zeile_Temp = 0, uint8_t Zeile_Feuchte = 1, const char *TemperaturText = "Temp: ", const char *FeuchteText = "Feuchte: ", bool Temperatur = true, bool Feuchte = true);
-extern void ArduinoBibEF_TempSensorDHT11_Serial(dht11 *DHT11, const char *TemperaturText = "Temp: ", const char *FeuchteText = "Feuchte: ", unsigned long BaudRate = 9600, bool Temperatur = true, bool Feuchte = true);
-extern float ArduinoBibEF_TempSensorDHT11(dht11 *DHT11, bool Feuchte = false, bool Temperatur = true);
+extern void ArduinoBibEF_TempSensorDHT11_LCD_Fehlerabfrage(LiquidCrystal *lcd, dht11 *dht11);
+extern void ArduinoBibEF_TempSensorDHT11_LCD(LiquidCrystal *lcd, dht11 *DHT11, const uint32_t &verzoegerung_ms = 250, const uint8_t &zeile_Temp = 0, uint8_t zeile_Feuchte = 1, const char *temperaturText = "Temp: ", const char *feuchteText = "Feuchte: ", const bool &temperatur = true, const bool &feuchte = true);
+extern void ArduinoBibEF_TempSensorDHT11_Serial(dht11 *dht11, const char *temperaturText = "Temp: ", const char *feuchteText = "Feuchte: ", unsigned long baudRate = 9600, const bool &temperatur = true, const bool &feuchte = true);
+extern float ArduinoBibEF_TempSensorDHT11(dht11 *dht11, const bool &feuchte = false, const bool &temperatur = true);
 
 //Photostrom
-extern void ArduinoBibEF_Photostrom_LCD(LiquidCrystal *lcd, uint8_t Zeile = 1, uint8_t AnalogPin = 0, uint32_t Verzoegerung_ms = 250, const char *Text = "Photostrom: ");
-extern void ArduinoBibEF_Photostrom_Serial(uint8_t AnalogPin, uint32_t Verzoegerung_ms, unsigned long BaudRate = 9600);
-extern int ArduinoBibEF_Photostrom(uint8_t AnalogPin = 0, uint32_t Verzoegerung_ms = 250);
+extern void ArduinoBibEF_Photostrom_LCD(LiquidCrystal *lcd, uint8_t Zeile = 1, const uint8_t &analogPin = 0, const uint32_t &verzoegerung_ms = 250, const char *text = "Photostrom: ");
+extern void ArduinoBibEF_Photostrom_Serial(const uint8_t &analogPin, const uint32_t &verzoegerung_ms, unsigned long &baudRate = 9600);
+extern int ArduinoBibEF_Photostrom(const uint8_t &analogPin = 0, const uint32_t &verzoegerung_ms = 250);
 
 
 #endif

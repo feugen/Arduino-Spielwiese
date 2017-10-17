@@ -23,31 +23,31 @@ int ArduinoBibEF_LCD_Initialisierung(LiquidCrystal *lcd){
 }
 
 //Startbildschirm mit Animation
-void ArduinoBibEF_LCD_Animation(LiquidCrystal *lcd, char const *Text){
+void ArduinoBibEF_LCD_Animation(LiquidCrystal *lcd, char const *text){
 
   lcd->clear();
   //Cursorposition festlegen, hier oben links
   lcd->setCursor(0, 0);
   //Ausgabe auf den Bildschirm
-  lcd->print(Text);
+  lcd->print(text);
   //Verzögerung
   delay(2000);
 
   //Animation
-  int Position = 0;
-  int StringElement = 0;
+  int position = 0;
+  int stringElement = 0;
 
-  for(; Position <= 15; Position++){
-    lcd->setCursor(Position,0);
+  for(; position <= 15; position++){
+    lcd->setCursor(position,0);
     lcd->print(" ");
-    lcd->setCursor(Position, 1);
-    if(Text[StringElement] != '\0'){
-      lcd->print(Text[StringElement]);
+    lcd->setCursor(position, 1);
+    if(text[stringElement] != '\0'){
+      lcd->print(text[stringElement]);
     }
     else{
       break;
     }
-    StringElement++;
+    stringElement++;
     delay(100);
   }
   delay(2000);
@@ -65,64 +65,64 @@ void ArduinoBibEF_LCD_Animation(LiquidCrystal *lcd, char const *Text){
 ****************************************
 **/
 
-void ArduinoBibEF_TempSensorDHT11_LCD_Fehlerabfrage(LiquidCrystal *lcd, dht11 *DHT11){
+void ArduinoBibEF_TempSensorDHT11_LCD_Fehlerabfrage(LiquidCrystal *lcd, dht11 *dht11){
 
   lcd->setCursor(15,1);
   lcd->clear();
   lcd->setCursor(0,0);
   lcd->print("Fehlerausgabe:");
   lcd->setCursor(0,1);
-  int lesen = DHT11->read(9);
+  int lesen = dht11->read(9);
   lcd->print(lesen);
   delay(2000);
 
 }
 
-void ArduinoBibEF_TempSensorDHT11_LCD(LiquidCrystal *lcd, dht11 *DHT11, uint32_t Verzoegerung_ms, uint8_t Zeile_Temp, uint8_t Zeile_Feuchte, const char *TemperaturText, const char *FeuchteText, bool Temperatur, bool Feuchte){
+void ArduinoBibEF_TempSensorDHT11_LCD(LiquidCrystal *lcd, dht11 *dht11, const uint32_t &verzoegerung_ms, const uint8_t &zeile_Temp, uint8_t zeile_Feuchte, const char *temperaturText, const char *feuchteText, const bool &temperatur, const bool &feuchte){
 
   lcd->setCursor(15,1);
   lcd->clear();
-  if(Temperatur == true){
-    lcd->setCursor(0,Zeile_Temp);
-    lcd->print(TemperaturText);
-    lcd->print((float)DHT11->temperature);
+  if(temperatur == true){
+    lcd->setCursor(0,zeile_Temp);
+    lcd->print(temperaturText);
+    lcd->print((float)dht11->temperature);
   }
-  if(Feuchte == true){
-    lcd->setCursor(0,Zeile_Feuchte);
-    lcd->print(FeuchteText);
-    lcd->print((float)DHT11->humidity);
+  if(feuchte == true){
+    lcd->setCursor(0,zeile_Feuchte);
+    lcd->print(feuchteText);
+    lcd->print((float)dht11->humidity);
   }
   lcd->setCursor(15,1);
-  delay(Verzoegerung_ms);
+  delay(verzoegerung_ms);
 
 }
 
-void ArduinoBibEF_TempSensorDHT11_Serial(dht11 *DHT11, const char *TemperaturText, const char *FeuchteText, unsigned long BaudRate, bool Temperatur, bool Feuchte){
+void ArduinoBibEF_TempSensorDHT11_Serial(dht11 *dht11, const char *temperaturText, const char *feuchteText, unsigned long baudRate, const bool &temperatur, const bool &feuchte){
 
-  Serial.begin(BaudRate);
-  if(Temperatur == true){
-    Serial.print(TemperaturText);
-    Serial.print((float)DHT11->temperature);
+  Serial.begin(baudRate);
+  if(temperatur == true){
+    Serial.print(temperaturText);
+    Serial.print((float)dht11->temperature);
   }
-  if(Feuchte == true){
-    Serial.print(FeuchteText);
-    Serial.print((float)DHT11->humidity);
+  if(feuchte == true){
+    Serial.print(feuchteText);
+    Serial.print((float)dht11->humidity);
   }
   Serial.end();
 
 }
 
-float ArduinoBibEF_TempSensorDHT11(dht11 *DHT11, bool Feuchte, bool Temperatur){
+float ArduinoBibEF_TempSensorDHT11(dht11 *dht11, const bool &feuchte, const bool &temperatur){
 
   //Entweder Temp oder Feuchte ausgeben
-  float Messwert = 0;
-  if(Feuchte == true){
-    Messwert = DHT11->humidity;
+  float messwert = 0;
+  if(feuchte == true){
+    messwert = dht11->humidity;
   }
-  if(Temperatur == true){
-    Messwert = DHT11->temperature;
+  if(temperatur == true){
+    messwert = dht11->temperature;
   }
-  return Messwert;
+  return messwert;
 
 }
 
@@ -133,34 +133,34 @@ float ArduinoBibEF_TempSensorDHT11(dht11 *DHT11, bool Feuchte, bool Temperatur){
 **/
 
 //Photowiderstand auf LCD ausgeben
-void ArduinoBibEF_Photostrom_LCD(LiquidCrystal *lcd, uint8_t Zeile, uint8_t AnalogPin, uint32_t Verzoegerung_ms, const char *Text){
+void ArduinoBibEF_Photostrom_LCD(LiquidCrystal *lcd, const uint8_t &zeile, const uint8_t &analogPin, const uint32_t &verzoegerung_ms, const char *text){
 
   lcd->setCursor(15,1);
   lcd->clear();
-  int Photostrom = analogRead(AnalogPin);
-  lcd->setCursor(0,Zeile);
-  lcd->print(Text);
+  int Photostrom = analogRead(analogPin);
+  lcd->setCursor(0,zeile);
+  lcd->print(text);
   lcd->print(Photostrom);
-  delay(Verzoegerung_ms);
+  delay(verzoegerung_ms);
 
 }
 
 //Photowiderstand auf serielle Schnittstelle ausgeben
-void ArduinoBibEF_Photostrom_Serial(uint8_t AnalogPin, uint32_t Verzoegerung_ms, unsigned long BaudRate){
+void ArduinoBibEF_Photostrom_Serial(const uint8_t &analogPin, const uint32_t &verzoegerung_ms, unsigned long &baudRate){
 
-  int Photostrom = analogRead(AnalogPin);
-  delay(Verzoegerung_ms);
-  Serial.begin(BaudRate);
-  Serial.print(Photostrom);
+  int photostrom = analogRead(analogPin);
+  delay(verzoegerung_ms);
+  Serial.begin(baudRate);
+  Serial.print(photostrom);
   Serial.end();
 
 }
 
 //Photowiderstand
-int ArduinoBibEF_Photostrom(uint8_t AnalogPin, uint32_t Verzoegerung_ms){
+int ArduinoBibEF_Photostrom(const uint8_t &analogPin, const uint32_t &verzoegerung_ms){
 
-  int Photostrom = analogRead(AnalogPin);
-  delay(Verzoegerung_ms);
-  return Photostrom;
+  int photostrom = analogRead(analogPin);
+  delay(verzoegerung_ms);
+  return photostrom;
 
 }
